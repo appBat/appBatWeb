@@ -1,0 +1,106 @@
+<div class="jumbotron">
+
+<!-- COMPONENTE PARA CARGAR EL ARCHIVO HTML -->
+<js-xls onread="read" onerror="error"></js-xls> 
+  
+
+  <!-- TEXTO INFORMATIVO -->
+  <p class="lead">
+    Selecciona archivo .xlsx/.xls para ser cargado
+  </p>
+  
+</div>
+
+<!-- LINKS DE DOCUMENTACIÓN -->
+<div class="row marketing">
+ 
+ 
+
+   <h4>Base de datos</h4>
+  <a href="https://firebase.google.com/" target="_blank">
+  https://firebase.google.com/
+  </a>
+
+   <h4>Entorno de ejecución</h4>
+  <a href="https://nodejs.org/es/" target="_blank">
+  https://nodejs.org/es/
+  </a>
+
+  <h4>Scaffolding del proyecto  </h4>
+  <a href="https://github.com/yeoman/generator-angular" target="_blank">
+    https://github.com/yeoman/generator-angular
+  </a>
+
+  <h4>Libreria para leer archivos</h4>
+  <a href="https://github.com/SheetJS/js-xlsx" target="_blank">
+    https://github.com/SheetJS/js-xlsx
+  </a>
+
+   <h4>Libreria para angular</h4>
+  <a href="https://github.com/firebase/angularfire" target="_blank">
+    https://github.com/firebase/angularfire
+  </a>
+
+
+ 
+</div>
+
+<!-- FIN LINKS DE DOCUMENTACIÓN -->
+
+<!-- TABLA MOSTRANDO DATOS -->
+
+<h3>Total {{listaInsertar.length}}</h3>
+
+<button ng-click="inserta()">Insertar</button>
+<table class="w3-table">
+<tr>
+  <th style="width: 5%">id</th>
+  <th style="width: 10%">Ruta</th>
+  <th style="width: 30%">Gerente</th>
+  <th style="width: 10%" >Fecha</th>
+  <th style="width: 15%">Codigo sku</th>
+  <th style="width: 40%" >Descripcion de producto</th>
+  <th style="width: 10%">Ventas - Sticks</th>
+
+</tr>
+<tr ng-repeat="data in listaInsertar" ng-if="$index > 0">
+
+  <td>{{$index}}</td>
+  <td>{{data.ruta}}</td>
+  <td>{{data.gerente}}</td>
+  <td>{{data.fecha}}</td>
+  <td>{{data.codigoSku}}</td>
+  <td>{{data.descripcion}}</td>
+  <td>{{data.ventas}}</td>
+</tr>
+</table>
+
+<!-- FIN TABLA-->
+<!-- INICIO ESTILOS -->
+<style type="text/css">
+table.gridtable {
+  font-family: verdana,arial,sans-serif;
+  font-size:11px;
+  color:#333333;
+  border-width: 1px;
+  border-color: #666666;
+  border-collapse: collapse;
+}
+table.gridtable th {
+  border-width: 1px;
+  padding: 8px;
+  border-style: solid;
+  border-color: #666666;
+  background-color: #dedede;
+}
+table.gridtable td {
+  border-width: 1px;
+  padding: 8px;
+  border-style: solid;
+  border-color: #666666;
+  background-color: #ffffff;
+}
+</style>
+
+<!-- FIN ESTILOS -->
+
