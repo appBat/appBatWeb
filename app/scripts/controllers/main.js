@@ -6,25 +6,25 @@
  * @description
  * # MainCtrl
  * Controller of the proyectoUApp
+ ejemplo de subida  a  github 
  */
 angular.module('proyectoUApp')
   .controller('MainCtrl', function ($scope ,$firebaseArray ) {
-    //arreglo que  almacena la informacion de cada una de las  hojas de archivo
-  	
+  	//Lista con la base a consultar
   	$scope.baseAConsultar;
+  	//lista de objetos a insertar en la base de datos
   	$scope.listaInsertar = [] ;
-  
   	//insertar los  datos cargador en listaInsertar
 	$scope.inserta = function(){
 		//recorre el arreglo con los datos obtenidos
-		for (var i = 0; i < 20; i++) {
+		for (var i = 0; i < 20; i++) { //comentar esta linea y desconmentar al de abajo pra que haga todas las inserciones 
 			//for (var i = 0; i < $scope.listaInsertar.length; i++) {
 				//el primer dato que tiene los excabezados es ignorado con esta condicion
 				if(i > 0){
 					console.log($scope.listaInsertar[i]);
-
+					//crea referencia en la base de datos
 					var ref = firebase.database().ref();
-    			    //var newPostKey = firebase.database().ref().child("BaseConsultar").push().key;
+					//inserta     			   
     			    ref.child("BaseConsultar").push(
     			    		{
     			    		  ruta : $scope.listaInsertar[i].ruta ,
@@ -46,22 +46,18 @@ angular.module('proyectoUApp')
 
   	//funcion que lee el archivo y lo almacena en el objeto workbook para su posterior interpretacion
      $scope.read = function (workbook) {
-        /* DO SOMETHING WITH workbook HERE */
+        //Objeto donde quedan todas las hojas leidas 
         console.log(workbook);
-
         console.log("*****************");
-
-
+        //hojas
         console.log(workbook.Sheets);
+        //almacena la hoja
         $scope.baseAConsultar = workbook.Sheets.Base_a_Consultar
-        $scope.baseJson  =  JSON.stringify($scope.baseAConsultar); 
         console.log("*****************");
-
         console.log("*****************");
         console.log("*****************");
         console.log("*****************");
         console.log($scope.baseAConsultar);
-
         console.log("*****************");
         console.log("*****************");
         console.log("*****************");
@@ -143,24 +139,9 @@ angular.module('proyectoUApp')
 					$scope.objetoCreacion = {};
 					//actualiza en el html 
 					$scope.$apply();
-					return;
-        	        
-        			
+					return;		
         		}
-				   
-				      		
-        		
-        		
-
-        	
-		    
-
 		});
-      
-
-
       }
-
-
   });
 
