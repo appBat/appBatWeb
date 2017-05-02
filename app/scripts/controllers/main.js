@@ -8,28 +8,32 @@
  * Controller of the proyectoUApp
  ejemplo de subida  a  github 
  */
-angular.module('proyectoUApp')
-  .controller('MainCtrl', function ($scope ,$firebaseArray ) {
+angular.module('proyectoUApp' )
+  .controller('MainCtrl' , function ($scope ,$firebaseArray ,cfpLoadingBar ) {
+  	$scope.mostrarLoad = false ; 
   	//Lista con la base a consultar
   	$scope.baseAConsultar;
   	//lista de objetos a insertar en la base de datos
   	$scope.listaInsertar = [] ;
   	//insertar los  datos cargador en listaInsertar
 	$scope.inserta = function(){
+		//se obtiene referencia de la base
+		var ref = firebase.database().ref();
+		//se elimina el nodo para insertar lo nuevo
+		 ref.child("BaseConsultar").remove();
 		//recorre el arreglo con los datos obtenidos
 		for (var i = 0; i < 20; i++) { //comentar esta linea y desconmentar al de abajo pra que haga todas las inserciones 
 			//for (var i = 0; i < $scope.listaInsertar.length; i++) {
 				//el primer dato que tiene los excabezados es ignorado con esta condicion
 				if(i > 0){
 					console.log($scope.listaInsertar[i]);
-					//crea referencia en la base de datos
-					var ref = firebase.database().ref();
 					//inserta     			   
     			    ref.child("BaseConsultar").push(
     			    		{
     			    		  ruta : $scope.listaInsertar[i].ruta ,
     			    		  gerente : $scope.listaInsertar[i].gerente ,
     			    		  fecha : $scope.listaInsertar[i].fecha ,
+    			    		  marca : $scope.listaInsertar[i].marca, 
     			    		  codigoSku : $scope.listaInsertar[i].codigoSku ,
     			    		  descripcion : $scope.listaInsertar[i].descripcion ,
     			    		  ventas : $scope.listaInsertar[i].ventas 
@@ -71,7 +75,9 @@ angular.module('proyectoUApp')
         console.log( "valor columnas " +  $scope.contadorColumnas);
         console.log( "valor titulos " +  $scope.contadorTitulos);
         Object.keys($scope.baseAConsultar).forEach(function(key) {
-            //console.log($scope.baseAConsultar[key] );
+        	//cfpLoadingBar.start();
+          // cfpLoadingBar.inc();
+            console.log($scope.baseAConsultar[key] );
         		//valida el valor del contador de columnas 
         		if($scope.contadorColumnas === 0 ){
         		 //agrega el valor de la ruta 
@@ -127,7 +133,7 @@ angular.module('proyectoUApp')
         		    //agrega el valor de las ventas
     		    	$scope.objetoCreacion.ventas = $scope.baseAConsultar[key].w ;         			
     			  
-    			    console.log("********************");
+    			    console.log("*********fin line***********");
     			    console.log($scope.objetoCreacion);
     			    //$scope.listaInsertar[$scope.contadorNormal] = JSON.stringify($scope.objetoCreacion) ;
     			    $scope.listaInsertar.push($scope.objetoCreacion) ;
@@ -142,6 +148,8 @@ angular.module('proyectoUApp')
 					return;		
         		}
 		});
+			//cfpLoadingBar.complete();
+			 
       }
   });
 

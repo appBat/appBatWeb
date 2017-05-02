@@ -8,8 +8,8 @@
  * Controller of the proyectoUApp
  */
 angular.module('proyectoUApp')
-  .controller('UsuariosCtrl', function ($scope ,$firebaseArray ) {
-    
+  .controller('UsuariosCtrl', function ($scope ,$firebaseArray  , cfpLoadingBar) {
+     
   	//lista de objetos a insertar en la base de datos
   	$scope.listaInsertar = [] ;
   	//lista de usuarios cargador en el archivo 
@@ -17,21 +17,23 @@ angular.module('proyectoUApp')
   
   	//insertar los  datos cargador en listaInsertar
 	$scope.inserta = function(){
+		//se obtiene referencia de la base
+		var ref = firebase.database().ref();
+		//se elimina el nodo para insertar lo nuevo
+		 ref.child("Usuarios").remove();
 		//recorre el arreglo con los datos obtenidos
-		for (var i = 0; i < 20; i++) {
-			//for (var i = 0; i < $scope.listaInsertar.length; i++) {
+		//for (var i = 0; i < 10; i++) {  //comentar esta linea y desconmentar al de abajo pra que haga todas las inserciones 
+			for (var i = 0; i < $scope.listaInsertar.length; i++) {
 				//el primer dato que tiene los excabezados es ignorado con esta condicion
 				if(i > 0){
 					console.log($scope.listaInsertar[i]);
 
-					var ref = firebase.database().ref();
-    			    //var newPostKey = firebase.database().ref().child("BaseConsultar").push().key;
+					
     			    ref.child("Usuarios").push(
     			    		{
     			    		  ruta : $scope.listaInsertar[i].ruta ,
-    			    		  codigo : $scope.listaInsertar[i].codigo ,
     			    		  regional : $scope.listaInsertar[i].regional ,
-    			    		  gerente : $scope.listaInsertar[i].gerente ,
+    			    		  tipo : $scope.listaInsertar[i].tipo ,
     			    		  vendedor : $scope.listaInsertar[i].vendedor ,
     			    		  cedula : $scope.listaInsertar[i].cedula 
     			    		}    			   				
@@ -40,9 +42,9 @@ angular.module('proyectoUApp')
 		}
 	}
 
-
   	//funcion que lee el archivo y lo almacena en el objeto workbook para su posterior interpretacion
      $scope.readUser = function (workbook) {
+ 
         /* DO SOMETHING WITH workbook HERE */
         console.log(workbook);
         console.log(workbook.Sheets);
@@ -57,6 +59,7 @@ angular.module('proyectoUApp')
         console.log( "valor columnas " +  $scope.contadorColumnas1);
         console.log( "valor titulos " +  $scope.contadorTitulos);
         Object.keys($scope.usuarios).forEach(function(key) {
+
         	console.log("Entra for = " + $scope.contadorColumnas1);
             //console.log($scope.baseAConsultar[key] );
         		//valida el valor del contador de columnas 
@@ -70,38 +73,31 @@ angular.module('proyectoUApp')
         		}
         		if($scope.contadorColumnas1 === 1 ){
         		 	//agrega el valor del gerente
-        			$scope.objetoCreacion.codigo = $scope.usuarios[key].w ;         			
-        			console.log("agrega codigo");
+        			$scope.objetoCreacion.regional = $scope.usuarios[key].w ;         			
+        			console.log("agrega regiona");
         			//suma 1 al contador
 	        		$scope.contadorColumnas1++;  
 	        		return; 
         		}
         		if($scope.contadorColumnas1 === 2 ){
         		    //agrega el valor de la fecha
-        		   	$scope.objetoCreacion.regional = $scope.usuarios[key].w ;         			
-        	     	console.log("agrega regional");
+        		   	$scope.objetoCreacion.tipo = $scope.usuarios[key].w ;         			
+        	     	console.log("agrega tipo");
         		 	//suma 1 al contador
         		  	$scope.contadorColumnas1++;  
         			return;
         		}
         		if($scope.contadorColumnas1 === 3 ){
         		    //agrega el valor de la marca
-        		   	$scope.objetoCreacion.gerente	 = $scope.usuarios[key].w ;         			
+        		   	$scope.objetoCreacion.vendedor	 = $scope.usuarios[key].w ;         			
         			console.log("agrega gerente");
         		    //suma 1 al contador
         		  	$scope.contadorColumnas1++;  
         			return;
         		}
-        		if($scope.contadorColumnas1 === 4 ){
-        		     //agrega el valor del codigo sku
-        		     $scope.objetoCreacion.vendedor = $scope.usuarios[key].w ;         			
-        		     console.log("agrega vendedor");
-        		     //suma 1 al contador
-        		     $scope.contadorColumnas1++;  
-        			 return;
-        		}
+        	
         		
-        		if($scope.contadorColumnas1 === 5 ){
+        		if($scope.contadorColumnas1 === 4 ){
         		    //agrega el valor de las ventas
     		    	$scope.objetoCreacion.cedula = $scope.usuarios[key].w ;         			    			  
     			    console.log("********************");
@@ -113,7 +109,7 @@ angular.module('proyectoUApp')
 					$scope.contadorColumnas1 = 0;
 					//el objeto se reinicializa
 					$scope.objetoCreacion = {};
-					//actualiza en el html 
+					//actualiza en el html                     
 					$scope.$apply();
 					return;        	                			
         		}				   

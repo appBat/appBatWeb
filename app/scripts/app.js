@@ -17,8 +17,12 @@ angular
     'ngSanitize',
     'ngTouch',
     'firebase',
-    'angular-js-xlsx'  //llamado al  modulo de  excel 
+    'angular-js-xlsx',  //llamado al  modulo de  excel 
+    'angular-loading-bar' // llamado a modulo de  loading 
   ])
+   .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+    cfpLoadingBarProvider.includeSpinner = true;
+  }])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -35,6 +39,11 @@ angular
         templateUrl: 'views/usuarios.html',
         controller: 'UsuariosCtrl',
         controllerAs: 'usuarios'
+      })
+      .when('/baseObjetivos', {
+        templateUrl: 'views/baseobjetivos.html',
+        controller: 'BaseobjetivosCtrl',
+        controllerAs: 'baseObjetivos'
       })
       .otherwise({
         redirectTo: '/'

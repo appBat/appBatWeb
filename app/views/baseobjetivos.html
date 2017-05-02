@@ -1,4 +1,4 @@
-<h4>Usuarios</h4>
+<h4>Base objetivos</h4>
 <div class="jumbotron">
 
 <!-- COMPONENTE PARA CARGAR EL ARCHIVO HTML -->
@@ -9,7 +9,6 @@
   <p class="lead">
     Selecciona archivo .xlsx/.xls para cargar usuarios.
   </p>
-  
   
 </div>
 
@@ -24,20 +23,22 @@
 <tr>
 
   <th style="width: 10%">Ruta</th>
-  <th style="width: 15%">Regional</th>
-  <th style="width: 20%">Tipo</th>
-  <th style="width: 50%">Vendedor</th>
-  <th style="width: 20%">Cedula</th>
+  <th style="width: 30%">Gerente</th>
+  <th style="width: 20%">Marca</th>
+  <th style="width: 22%">Objetivo venta</th>
+  <th style="width: 22%">Objetivo visita</th>
+  <th style="width: 22%">Base clientes</th>
 
 </tr>
 <tr ng-repeat="data in listaInsertar" ng-if="$index > 0">
 
  
   <td>{{data.ruta}}</td>
-  <td>{{data.regional}}</td>
-  <td>{{data.tipo}}</td>
-  <td>{{data.vendedor}}</td>
-  <td>{{data.cedula}}</td>
+  <td>{{data.gerente}}</td>
+  <td>{{data.marca}}</td>
+  <td>{{data.objetivoVenta}}</td>
+  <td>{{data.objetivoVisita}}</td>
+  <td>{{data.baseClientes}}</td>
 </tr>
 </table>
 
